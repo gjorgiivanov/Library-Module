@@ -25,16 +25,30 @@ public class DataInitializer {
 
     @PostConstruct
     public void init() {
-        Country country1 = new Country((long)1,"North Macedonia", "Europe");
-        countryService.save(country1);
-        countryService.save("Albania", "Europe");
-        countryService.save("Canada", "North America");
-        countryService.save("Chile", "South America");
-        countryService.save("Germany", "Europe");
+        Country country = new Country((long)1,"North Macedonia", "Europe");
+        countryService.save(country);
+        country = new Country((long)2,"Albania", "Europe");
+        countryService.save(country);
+        country = new Country((long)3,"Canada", "North America");
+        countryService.save(country);
+        country = new Country((long)4,"Chile", "South America");
+        countryService.save(country);
+        country = new Country((long)5,"Germany", "Europe");
+        countryService.save(country);
 
-        Author author1 = new Author((long)1,"Slavko", "Janevski", country1);
-        authorService.save(author1);
+        Author author = new Author((long)1,"Slavko", "Janevski", countryService.findById((long)1).get());
+        authorService.save(author);
+        author = new Author((long)2,"Margaret", "Atwood", countryService.findById((long)3).get());
+        authorService.save(author);
+        author = new Author((long)3,"Hermann", "Hesse", countryService.findById((long)5).get());
+        authorService.save(author);
+        author = new Author((long)4,"Friedrich", "Nietzsche", countryService.findById((long)5).get());
+        authorService.save(author);
+        author = new Author((long)5,"Blaže", "Koneski", countryService.findById((long)1).get());
+        authorService.save(author);
 
-        bookService.save("Seloto zad sedumte jaseni", Category.NOVEL, author1.getId(), 15);
+        bookService.save("Seloto zad sedumte jaseni", Category.NOVEL, (long)1, 15);
+        bookService.save("Alias Grace", Category.HISTORY, (long)2, 5);
+        bookService.save("Siddhartha", Category.NOVEL, (long)3, 8);
     }
 }
